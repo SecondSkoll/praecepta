@@ -1,0 +1,9 @@
+extends: existence
+message: Use '1 January 1970' format, not '%s'.
+link: https://docs.ubuntu.com/styleguide/en/#dates
+ignorecase: true
+level: error
+nonword: true
+tokens:
+  - '(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)|May|Jun(?:e)|Jul(?:y)|Aug(?:ust)|Sep(?:tember)?|Oct(?:ober)|Nov(?:ember)?|Dec(?:ember)?) \d{2}(st|nd|rd|th){0,1}[,]{0,1} \d{4}'
+  - '\d{1,2} (?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)|May|Jun(?:e)|Jul(?:y)|Aug(?:ust)|Sep(?:tember)?|Oct(?:ober)|Nov(?:ember)?|Dec(?:ember)?) \d{4}'
