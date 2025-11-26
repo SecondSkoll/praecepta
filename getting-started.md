@@ -104,38 +104,13 @@ Besides the text file, the `vale` command needs a `vale.ini` config file. This f
 
 ### Test all rules
 
-To apply all the rules inside `styles/Canonical` at the same time, run `vale <file>` in the root directory `documentation-style-guide/`.
-
-For example:
-
-```shell
-vale test.md
-```
+A test suite is included in this repository. Create a Python virtual environment and install the test requirements (`tests/requirements.txt`), then run `pytest -v` from the root of this repository.
 
 ### Test a specific rule
 
-To limit the test to a specific rule, you have to modify the `vale.ini` config file's [style specification](https://vale.sh/docs/topics/config/#basedonstyles).
+The supplied test suite allows specific rules to be tested, rather than running tests on all the rules. Simply follow the instructions for testing all rules and then run `pytest -v -k <string>` to run tests matching the supplied string. This can be used to target rules with their numerical declaration (e.g. `pytest -v -k 003` for the `003-Ubuntu-names-versions` rule).
 
-The default config specifies `BasedOnStyles = Canonical`, which will test all rules in that folder.
-
-Comment that line out and add a line enabling your rule using the syntax `<style>.<rule> = <YES | NO>`
-
-This edit would look similar to the snippet below:
-
-```ini
-; BasedOnStyles = Canonical
-Canonical.000-My-Rule = YES
-```
-
-Once it is saved, you can run the command `vale <file>` in the root directory `documentation-style-guide/`.
-
-For example:
-
-```shell
-vale test.md
-```
-
-in the root directory `documentation-style-guide/`.
+For more practical tests of specific rules, it is optimal to use Vale's native functionality. [Filters](https://vale.sh/docs/filters) or [comment delimited markup](https://vale.sh/docs/formats/markdown) both allow for specific rules to be tested on any source file.
 
 ### Resources
 
