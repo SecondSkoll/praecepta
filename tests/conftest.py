@@ -100,13 +100,13 @@ def _discover_rule_ids() -> List[str]:
     )
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def manifest() -> Manifest:
     """Provide the validated Manifest model."""
     return _load_manifest()
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def rule_ids() -> List[str]:
     return _discover_rule_ids()
 
@@ -207,7 +207,7 @@ def case_definition(request):
     return request.param
 
 
-@pytest.fixture(params=["md", "rst"], scope="session")
+@pytest.fixture(params=["md", "rst"])
 def all_supported_types(request):  # potential future use
     return request.param
 
@@ -239,12 +239,12 @@ def _assert_case(rule_id: str, case: TestCase, results: List[ValeResult]):
 
     # Verify required tokens appear.
     assert not missing, (
-        f"Missing expected triggers for {rule_id}/{case.id}: {missing}\n"
+        f"Expected triggers not found: {missing} for {rule_id}/{case.id}: \n"
         f"Actual: {sorted(actual_set)}"
     )
     # Disallow completely unexpected tokens.
     assert not unexpected, (
-        f"Unexpected triggers for {rule_id}/{case.id}: {unexpected}\n"
+        f"Unexpected triggers: {unexpected} for {rule_id}/{case.id}: \n"
         f"Expected: {sorted(expected_set)}"
     )
 
@@ -282,7 +282,7 @@ def vale_runner():
 def assert_case():
     return _assert_case
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def manifest_schema(manifest: Manifest) -> Dict[str, Any]:
     """Provide the JSON schema for the Manifest (Draft generation by Pydantic)."""
     return manifest.model_json_schema()
